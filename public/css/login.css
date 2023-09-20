@@ -1,5 +1,6 @@
 body{
-    background-image: url('/images/login.jpg');
+    /* background-image: url('/images/login.jpg'); */
+    background-color: #262a2e;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;

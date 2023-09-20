@@ -10,14 +10,16 @@ const compression = require('compression');
 const electricRouter = require('./routes/electric_index');
 const gasRouter = require('./routes/gas_index');
 const adminRouter = require('./routes/admin');
+const semailRouter = require('./routes/submail');
 var UserModel = require("./models/CustomerModel");
 const app = express();
 
+const dburl = "mongodb+srv://pooja:pooja@cluster0.7hjletz.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp"
 
 //Connecting to Mongodb
 const db = async () => {
     try {
-        const conn = await mongoose.connect('mongodb://localhost:27017/autorizz', {
+        const conn = await mongoose.connect(dburl, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useFindAndModify: false
@@ -33,6 +35,15 @@ const db = async () => {
 }
 
 db();
+
+ // Require the submail route
+
+// ... (other middleware setup)
+
+// Use the /subscribemail route
+
+
+// ... (other routes)
 
 
 // view engine setup
@@ -68,7 +79,8 @@ app.get('/home', function (req, res) {
 app.use('/admin', adminRouter);
 app.use('/electric', electricRouter);
 app.use('/gas', gasRouter);
-
+// app.use('/subscribemail', semail);
+app.use('/subscribemail', semailRouter);
 
 //Users
 app.post('/customer', async (req, res) => {
@@ -100,5 +112,8 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+
+
 
 module.exports = app;
